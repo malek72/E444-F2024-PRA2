@@ -16,15 +16,20 @@ class NameForm(FlaskForm):
     name = StringField('What is your name?', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
+    name = None
     form = NameForm()
-    name = 'Malek'  # Default name
     if form.validate_on_submit():
         name = form.name.data
-        return redirect(url_for('home'))
+        form.name.data = ''
+    return render_template('index.html', form=form, name=name)
     # HTML template as a string
     template = '''
+    {% extends "base.html" %}
+    {% import "bootstrap/wtf.html" as wtf %}
+
+    {% block title %}Flasky{% endblock %}
     <head>
         {{ moment.include_moment() }}  <!-- Include moment.js -->
     </head>
@@ -57,10 +62,11 @@ def home():
     {% block content %}
     <div class="container">
         <div class="page-header">
-            <h1>Hello, {{ name }}!</h1>
+            <h1>Hello, {% if name %}{{ name }}{% else %}Stranger{% endif %}!</h1>
         </div>
         <p>The local date and time is {{ moment(current_time).format('LLLL') }}.</p>
         <p>That was {{ moment(current_time).fromNow(refresh=True) }}</p>
+        {{ wtf.quick_form(form) }}
     </div>
     {% endblock %}
 
