@@ -12,6 +12,11 @@ def home():
     <head>
         {{ moment.include_moment() }}  <!-- Include moment.js -->
     </head>
+    {% extends "bootstrap/base.html" %}
+
+    {% block title %}Flasky{% endblock %}
+
+    {% block navbar %}
     <div class="navbar navbar-inverse" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -31,6 +36,7 @@ def home():
             </div>
         </div>
     </div>
+    {% endblock %}
 
     {% block content %}
     <div class="container">
