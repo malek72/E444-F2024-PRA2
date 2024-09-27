@@ -1,0 +1,44 @@
+from flask import Flask, render_template_string
+from datetime import datetime
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    # HTML template as a string
+    template = '''
+    <div class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle"
+                        data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Flasky</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {% block content %}
+    <div class="container">
+        <div class="page-header">
+            <h1>Hello, {{ name }}!</h1>
+        </div>
+        <p>The local date and time is {{ moment(current_time).format('LLL') }}.</p>
+        <p>That was {{ moment(current_time).fromNow(refresh=True) }}</p>
+    </div>
+    {% endblock %}
+    '''
+    # Pass 'name' variable to the template
+    return render_template_string(template, name='Malek', current_time=datetime.utcnow())
+
+if __name__ == '__main__':
+    app.run(debug=True)
