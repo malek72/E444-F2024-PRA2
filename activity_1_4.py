@@ -66,7 +66,7 @@ def home():
         {% block content %}
         <div class="container">
             <div class="page-header">
-                <h1>Hello, {% if name %}{{ name }}{% else %}Stranger{% endif %}!</h1>
+                <h1>Hello, {% if name %}{{ name }} Welcome to PRA2 Docker{% else %}Stranger{% endif %}!</h1>
             </div>
             <div class="page-header">
                 <h1>Your UOFT email, {% if uoft_email_add %}{{ uoft_email_add }}{% else %}please write it{% endif %}!</h1>
