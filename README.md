@@ -1,3 +1,8 @@
+**Owner of repo:** Malek Siabi
+
+This repository is a clone of [Flasky](https://github.com/miguelgrinberg/flasky) by Miguel Grinberg.
+
+
 Flasky
 ======
 
