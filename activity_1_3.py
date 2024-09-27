@@ -1,9 +1,11 @@
 from flask import Flask, render_template_string
 from datetime import datetime
 from flask_moment import Moment
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
 moment = Moment(app)
+Bootstrap(app)
 
 @app.route('/')
 def home():
