@@ -49,6 +49,21 @@ def home():
         <p>That was {{ moment(current_time).fromNow(refresh=True) }}</p>
     </div>
     {% endblock %}
+
+
+    {% block content %}
+    <div class="container">
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+
+        {% block page_content %}{% endblock %}
+    </div>
+    {% endblock %}
+
     '''
     return render_template_string(template, name='Malek', current_time=datetime.utcnow())
 
