@@ -9,6 +9,9 @@ moment = Moment(app)
 def home():
     # HTML template as a string
     template = '''
+    <head>
+        {{ moment.include_moment() }}  <!-- Include moment.js -->
+    </head>
     <div class="navbar navbar-inverse" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -34,7 +37,7 @@ def home():
         <div class="page-header">
             <h1>Hello, {{ name }}!</h1>
         </div>
-        <p>The local date and time is {{ moment(current_time).format('LLL') }}.</p>
+        <p>The local date and time is {{ moment(current_time).format('LLLL') }}.</p>
         <p>That was {{ moment(current_time).fromNow(refresh=True) }}</p>
     </div>
     {% endblock %}
