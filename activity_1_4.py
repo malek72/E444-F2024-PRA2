@@ -2,13 +2,27 @@ from flask import Flask, render_template_string
 from datetime import datetime
 from flask_moment import Moment
 from flask_bootstrap import Bootstrap
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
+
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'mysecretkey'
 moment = Moment(app)
 Bootstrap(app)
 
+class NameForm(FlaskForm):
+    name = StringField('What is your name?', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
 @app.route('/')
 def home():
+    form = NameForm()
+    name = 'Malek'  # Default name
+    if form.validate_on_submit():
+        name = form.name.data
+        return redirect(url_for('home'))
     # HTML template as a string
     template = '''
     <head>
@@ -47,20 +61,6 @@ def home():
         </div>
         <p>The local date and time is {{ moment(current_time).format('LLLL') }}.</p>
         <p>That was {{ moment(current_time).fromNow(refresh=True) }}</p>
-    </div>
-    {% endblock %}
-
-
-    {% block content %}
-    <div class="container">
-        {% for message in get_flashed_messages() %}
-        <div class="alert alert-warning">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            {{ message }}
-        </div>
-        {% endfor %}
-
-        {% block page_content %}{% endblock %}
     </div>
     {% endblock %}
 
